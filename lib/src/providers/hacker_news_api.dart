@@ -11,6 +11,9 @@ enum storyTypes {
   topStories,
   newStories,
   bestStories,
+  askStories,
+  showStories,
+  jobStories,
 }
 
 //todo: implement abstract classes for source
@@ -19,13 +22,24 @@ class HackerNewsAPI {
   final Client client = Client();
 
   // ge a list of the top ids as an List<int>
-  Future<List<int>> getListOfTopIds() async {
-    final response = await client.get('$baseURL/topstories.json');
+//  Future<List<int>> getListOfTopIds() async {
+//    final response = await client.get('$baseURL/topstories.json');
+//    final ids = json.decode(response.body);
+//    return ids.cast<int>();
+//  } // getListOfTopIds
+
+  //get request and json decoder helper
+  Future<List<int>> getListOfItems(storyTypes st) async {
+    final fullUrl = _getURLEndpoint(st);
+    final response = await client.get(fullUrl);
     final ids = json.decode(response.body);
     return ids.cast<int>();
-  } // getListOfTopIds
+  } // getListOfItems
 
-  Future<List<int>> getListOfIds(storyTypes st) async {
+// --> HELPERS <-- \\
+
+//return the full URL endpoint for the correct list to be retrieved
+  String _getURLEndpoint(storyTypes st) {
     String url = "";
     switch (st) {
       case storyTypes.bestStories:
@@ -37,20 +51,22 @@ class HackerNewsAPI {
       case storyTypes.topStories:
         url = "$baseURL/topstories";
         break;
+      case storyTypes.showStories:
+        url = "$baseURL/showstories";
+        break;
+      case storyTypes.askStories:
+        url = "$baseURL/askstories";
+        break;
+      case storyTypes.jobStories:
+        url = "$baseURL/jobstories";
+        break;
       default:
         url = "$baseURL/topstories";
         break; // handle error
     }
 
-    return await _getListAndDecodeJson(url);
-  } //getListOfIds
-
-  //get request and json decoder helper
-  Future<List<int>> _getListAndDecodeJson(String url) async {
-    final response = await client.get(url);
-    final ids = json.decode(response.body);
-    return ids.cast<int>();
-  } // _getListAndDecodeJson
+    return url;
+  } //_getURLEndpoint
 
 //todo: experiment with creating a switch statement and combining the list function calls
 //todo: write a test to determine functionality of switch
