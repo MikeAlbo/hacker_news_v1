@@ -29,12 +29,21 @@ class HackerNewsAPI {
 //  } // getListOfTopIds
 
   //get request and json decoder helper
-  Future<List<int>> getListOfItems(storyTypes st) async {
+  Future<List<int>> fetchListOfItems(storyTypes st) async {
     final fullUrl = _getURLEndpoint(st);
     final response = await client.get(fullUrl);
     final ids = json.decode(response.body);
     return ids.cast<int>();
-  } // getListOfItems
+  } // fetchListOfItems
+
+  //fetch the item using an item id
+  //todo: add the return type of Future<ItemModel> once ItemModel has been created
+
+  fetchItem(int id) async {
+    final response = await client.get("$baseURL/item/$id.json");
+    final parsedJson = jsonDecode(response.body);
+    return null; //todo: after creating the item model this should return ItemModel.fromJson(parsedJson);
+  }
 
 // --> HELPERS <-- \\
 
@@ -70,5 +79,5 @@ class HackerNewsAPI {
 
 //todo: experiment with creating a switch statement and combining the list function calls
 //todo: write a test to determine functionality of switch
-// todo: possibly refactor so that the get request is called in the main function and the url is selector is the helper function
+
 } //HackerNewsAPI
