@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' show Client;
 
+import '../models/itemModel.dart';
+
 // current base url to the HN API as of 02/15/19
 const String baseURL = 'https://hacker-news.firebaseio.com/v0';
 
@@ -19,7 +21,7 @@ enum storyTypes {
 //todo: implement abstract classes for source
 class HackerNewsAPI {
   // init HTTP client
-  final Client client = Client();
+  Client client = Client();
 
   // ge a list of the top ids as an List<int>
 //  Future<List<int>> getListOfTopIds() async {
@@ -37,12 +39,10 @@ class HackerNewsAPI {
   } // fetchListOfItems
 
   //fetch the item using an item id
-  //todo: add the return type of Future<ItemModel> once ItemModel has been created
-
-  fetchItem(int id) async {
+  Future<ItemModel> fetchItem(int id) async {
     final response = await client.get("$baseURL/item/$id.json");
     final parsedJson = jsonDecode(response.body);
-    return null; //todo: after creating the item model this should return ItemModel.fromJson(parsedJson);
+    return ItemModel.fromJson(parsedJson);
   }
 
 // --> HELPERS <-- \\
@@ -52,25 +52,25 @@ class HackerNewsAPI {
     String url = "";
     switch (st) {
       case storyTypes.bestStories:
-        url = "$baseURL/beststories";
+        url = "$baseURL/beststories.json";
         break;
       case storyTypes.newStories:
-        url = "$baseURL/newstories";
+        url = "$baseURL/newstories.json";
         break;
       case storyTypes.topStories:
-        url = "$baseURL/topstories";
+        url = "$baseURL/topstories.json";
         break;
       case storyTypes.showStories:
-        url = "$baseURL/showstories";
+        url = "$baseURL/showstories.json";
         break;
       case storyTypes.askStories:
-        url = "$baseURL/askstories";
+        url = "$baseURL/askstories.json";
         break;
       case storyTypes.jobStories:
-        url = "$baseURL/jobstories";
+        url = "$baseURL/jobstories.json";
         break;
       default:
-        url = "$baseURL/topstories";
+        url = "$baseURL/topstories.json";
         break; // handle error
     }
 
