@@ -69,4 +69,16 @@ void main() {
     final jobStoriesIds = await newsApi.fetchListOfItems(storyTypes.jobStories);
     expect(jobStoriesIds, [11, 12]);
   }); // returns the appropriate list of ids
-}
+
+  test("FetchItem should return an item model", () async {
+    final newsApi = HackerNewsAPI();
+
+    newsApi.client = MockClient((request) async {
+      final jsonMap = {'id': 123};
+      return Response(jsonEncode(jsonMap), 200);
+    });
+
+    final item = await newsApi.fetchItem(99999);
+    expect(item.id, 123);
+  }); //fetchItem should return an ItemModel
+} //main
