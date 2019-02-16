@@ -70,3 +70,6 @@ class ItemDbProvider {
   } // clearItems
 
 } // ItemDbProvider
+
+// create an instance of the ItemDbProvider for use in application
+final itemDbProvider = ItemDbProvider();
