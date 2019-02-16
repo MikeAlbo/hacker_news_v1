@@ -77,7 +77,4 @@ class HackerNewsAPI {
     return url;
   } //_getURLEndpoint
 
-//todo: experiment with creating a switch statement and combining the list function calls
-//todo: write a test to determine functionality of switch
-
 } //HackerNewsAPI
