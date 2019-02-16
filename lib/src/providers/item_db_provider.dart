@@ -8,7 +8,7 @@ import 'package:sqflite/sqflite.dart';
 import '../models/itemModel.dart';
 
 class ItemDbProvider {
-  Database db;
+  Database _db;
 
   // use the constructor to initialize the database
   ItemDbProvider() {
@@ -19,7 +19,7 @@ class ItemDbProvider {
   void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, "item.db");
-    db = await openDatabase(path, version: 1,
+    _db = await openDatabase(path, version: 1,
         onCreate: (Database newDb, int version) {
       newDb.execute("""
       CREATE TABLE Items
@@ -44,7 +44,7 @@ class ItemDbProvider {
 
   // fetch an item from the Items table
   Future<ItemModel> fetchItem(int id) async {
-    final maps = await db.query(
+    final maps = await _db.query(
       "Items",
       columns: null,
       where: "id = ?",
@@ -60,13 +60,13 @@ class ItemDbProvider {
 
 // add an item to the Items table
   Future<int> addItem(ItemModel item) {
-    return db.insert("Items", item.toMapForDb(),
+    return _db.insert("Items", item.toMapForDb(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
   } // addItem
 
 // clear the Items table of all data
   Future<int> clearItems() {
-    return db.delete("Items");
+    return _db.delete("Items");
   } // clearItems
 
 } // ItemDbProvider
