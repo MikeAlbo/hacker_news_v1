@@ -18,8 +18,9 @@ class FavoritesModel {
         favoritesIds = json.decode(parsedDb["favoritesIds"]);
 
   //we should take the ids property and encode it into a JSON string which will be stored in the db under the ids field
-  Map<String, String> toStringForDb() {
-    return <String, String>{
+  Map<String, dynamic> toMapForDb() {
+    return <String, dynamic>{
+      "id": id,
       "favoritesIds:": jsonEncode(favoritesIds),
     };
   }
