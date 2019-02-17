@@ -1,14 +1,22 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:hacker_news_v1/src/providers/hacker_news_api.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/favoritesModel.dart';
 import '../models/itemModel.dart';
+import 'repository.dart';
 
-class ItemDbProvider {
+class ItemDbProvider extends ItemSources {
+  //future: add a method call to fetch the proper list of story ids
+  // added to satisfy the abstract ItemSources class
+  Future<List<int>> fetchListOfItems(storyTypes st) async {
+    return await null;
+  }
+
   Database _db;
 
   // use the constructor to initialize the database

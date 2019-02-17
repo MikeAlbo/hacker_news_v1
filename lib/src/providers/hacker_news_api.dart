@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' show Client;
 
 import '../models/itemModel.dart';
+import 'repository.dart';
 
 // current base url to the HN API as of 02/15/19
 const String baseURL = 'https://hacker-news.firebaseio.com/v0';
@@ -19,7 +20,7 @@ enum storyTypes {
 }
 
 //todo: implement abstract classes for source
-class HackerNewsAPI {
+class HackerNewsAPI extends ItemSources {
   // init HTTP client
   Client client = Client();
 
