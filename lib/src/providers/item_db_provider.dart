@@ -73,8 +73,15 @@ class ItemDbProvider {
   } // fetchFavorites
 
   // write the list of favorites to the db
+  Future<int> addFavoritesListToDb(FavoritesModel favorites) async {
+    return _db.insert("Favorites", favorites.toMapForDb(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+  } // addFavoritesListToDB
 
   // clear the list of favorites form the db
+  Future<int> clearFavoritesList() {
+    return _db.delete("Favorites");
+  } // clearFavoritesList
 
   // fetch an item from the Items table
   Future<ItemModel> fetchItem(int id) async {
