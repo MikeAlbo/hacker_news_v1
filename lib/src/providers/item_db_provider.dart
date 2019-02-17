@@ -19,9 +19,16 @@ class ItemDbProvider {
   void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, "item.db");
-    _db = await openDatabase(path, version: 1,
-        onCreate: (Database newDb, int version) {
-      newDb.execute("""
+    _db = await openDatabase(
+      path,
+      version: 1,
+      onCreate: this._createTables,
+    );
+  } //init
+
+  // on create helper to generate 2 tables
+  Future _createTables(Database db, int version) async {
+    await db.execute("""
       CREATE TABLE Items
       (
       id INTEGER PRIMARY KEY,
@@ -39,8 +46,15 @@ class ItemDbProvider {
       descendants INTEGER
       )
       """);
-    });
-  } //init
+
+    await db.execute("""
+     CREATE TABLE Favorites
+     (
+     id INTEGER PRIMARY KEY,
+     favoritesIds BLOB
+     )
+    """);
+  }
 
   // fetch an item from the Items table
   Future<ItemModel> fetchItem(int id) async {

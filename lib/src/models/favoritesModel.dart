@@ -25,7 +25,3 @@ class FavoritesModel {
     };
   }
 }
-
-//ok, something to consider. we could try to have each id as its own entry into the db. We would just do a query for all of the entries and then somehow parse the results into an array for the read function. Add, remove function would do those actions strait on the db and then re-query the db.
-
-// this model should just contain the methods to do the data conversions. The read write functions should be handled in the db provider. These methods should be called, along with the add/remove/clear methods, from the bloc.
