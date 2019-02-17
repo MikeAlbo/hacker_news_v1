@@ -9,10 +9,13 @@
 import 'dart:convert';
 
 class FavoritesModel {
-  final List<dynamic> ids;
+  final List<int> ids;
 
-  FavoritesModel.fromDb(Map<String, dynamic> parsedDb) : ids = parsedDb["ids"];
+  // we want to take the mapped data from the db query, we should select the "ids" key and then decode that string into a List<int> ... in theory
+  FavoritesModel.fromDb(Map<String, String> parsedDb)
+      : ids = json.decode(parsedDb["ids"]);
 
+  //we should take the ids property and encode it into a JSON string which will be stored in the db under the ids field
   Map<String, String> toStringForDb() {
     return <String, String>{
       "ids:": jsonEncode(ids),
@@ -20,4 +23,6 @@ class FavoritesModel {
   }
 }
 
-// this model should just contain the methods to do the data conversions. The read write functions should be handled in the db provider. These methods should be called from the bloc.
+//ok, something to consider. we could try to have each id as its own entry into the db. We would just do a query for all of the entries and then somehow parse the results into an array for the read function. Add, remove function would do those actions strait on the db and then re-query the db.
+
+// this model should just contain the methods to do the data conversions. The read write functions should be handled in the db provider. These methods should be called, along with the add/remove/clear methods, from the bloc.
