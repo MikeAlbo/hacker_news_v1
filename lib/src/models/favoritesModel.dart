@@ -9,16 +9,18 @@
 import 'dart:convert';
 
 class FavoritesModel {
-  final List<int> ids;
+  final int id;
+  final List<int> favoritesIds;
 
   // we want to take the mapped data from the db query, we should select the "ids" key and then decode that string into a List<int> ... in theory
-  FavoritesModel.fromDb(Map<String, String> parsedDb)
-      : ids = json.decode(parsedDb["ids"]);
+  FavoritesModel.fromDb(Map<String, dynamic> parsedDb)
+      : id = parsedDb["id"],
+        favoritesIds = json.decode(parsedDb["favoritesIds"]);
 
   //we should take the ids property and encode it into a JSON string which will be stored in the db under the ids field
   Map<String, String> toStringForDb() {
     return <String, String>{
-      "ids:": jsonEncode(ids),
+      "favoritesIds:": jsonEncode(favoritesIds),
     };
   }
 }
