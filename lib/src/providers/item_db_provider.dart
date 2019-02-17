@@ -58,11 +58,12 @@ class ItemDbProvider {
   }
 
   // fetch the list of favorites from the db
-  Future<FavoritesModel> fetchFavorites() async {
+  Future<FavoritesModel> fetchFavorites(int id) async {
     final maps = await _db.query(
       "Favorites",
       columns: null,
-      where: "id = 1",
+      where: "id = ?",
+      whereArgs: [id], // todo: make sure favorites list id does not change
     );
 
     if (maps.length > 0) {
@@ -114,3 +115,7 @@ class ItemDbProvider {
 
 // create an instance of the ItemDbProvider for use in application
 final itemDbProvider = ItemDbProvider();
+
+/*
+* future: the favorites table can be refactored to save list for all of the different list quires
+* */
