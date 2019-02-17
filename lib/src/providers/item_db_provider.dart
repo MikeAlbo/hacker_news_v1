@@ -5,6 +5,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../models/favoritesModel.dart';
 import '../models/itemModel.dart';
 
 class ItemDbProvider {
@@ -55,6 +56,25 @@ class ItemDbProvider {
      )
     """);
   }
+
+  // fetch the list of favorites from the db
+  Future<FavoritesModel> fetchFavorites() async {
+    final maps = await _db.query(
+      "Favorites",
+      columns: null,
+      where: "id = 1",
+    );
+
+    if (maps.length > 0) {
+      return FavoritesModel.fromDb(maps.first);
+    }
+
+    return null;
+  } // fetchFavorites
+
+  // write the list of favorites to the db
+
+  // clear the list of favorites form the db
 
   // fetch an item from the Items table
   Future<ItemModel> fetchItem(int id) async {
