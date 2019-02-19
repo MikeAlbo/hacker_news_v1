@@ -1,10 +1,52 @@
-// todo: import models and repository
-// todo: init the repository
-// todo: create PublishSubjects (rxdart) for _topIds and _itemFetcher
-// todo: create a BehaviorSubject (rxdart) form _itemsOutput
-// todo: create getters to both the streams and the sink
-// todo: create fetchTopIds method
-// todo: create a clearCache method
-// todo: create a transformer that handles the fetching and movement of the item
-// todo: from the constructor link the itemFetcher, transformer, and itemsOutput
-// todo: create a dispose function to close the streams
+import 'dart:async';
+
+import 'package:hacker_news_v1/src/models/itemModel.dart';
+import 'package:hacker_news_v1/src/providers/repository.dart';
+import 'package:rxdart/rxdart.dart';
+
+import '../providers/hacker_news_api.dart';
+
+class StoriesBloc {
+  final _repository = Repository();
+  final _listOfIds = PublishSubject<List<int>>();
+  final _itemsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
+  final _itemsFetcher = PublishSubject<int>();
+
+  // Getters to access the streams
+  Observable<List<int>> get listOfIds => _listOfIds.stream;
+  Observable<Map<int, Future<ItemModel>>> get items => _itemsOutput.stream;
+
+  // Getter to add an item id to the sink
+  Function(int) get fetchItem => _itemsFetcher.sink.add;
+
+  //constructor which applies the transformer to the item model
+  StoriesBloc() {
+    _itemsFetcher.stream.transform(_itemTransformer()).pipe(_itemsOutput);
+  }
+
+  // retrieve the appropriate list of ids from the repo
+  void fetchListOfIds(storyTypes st) async {
+    final ids = await _repository.fetchListOfIds(st);
+    _listOfIds.sink.add(ids);
+  }
+
+  _itemTransformer() {
+    return ScanStreamTransformer(
+      (Map<int, Future<ItemModel>> cache, int id, index) {
+        print(index); //todo: remove for production, used to test api calls
+        cache[id] = _repository.fetchItem(id);
+        return cache;
+      },
+      <int, Future<ItemModel>>{},
+    );
+  }
+
+  //todo: method to clear cache, used for refresh
+
+  // close the streams
+  dispose() {
+    _listOfIds.close();
+    _itemsOutput.close();
+    _itemsFetcher.close();
+  }
+}

@@ -13,7 +13,7 @@ class Repository {
   ];
 
   //get a appropriate list of Ids
-  Future<List<int>> getListOfIds(storyTypes st) async {
+  Future<List<int>> fetchListOfIds(storyTypes st) async {
     return sources[1].fetchListOfItems(st);
   } //getListOfIds
 
