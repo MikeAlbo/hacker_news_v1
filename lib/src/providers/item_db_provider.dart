@@ -27,7 +27,7 @@ class ItemDbProvider extends ItemSources {
   // initialize the database, if one does not exist then create one at that path
   void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, "item.db");
+    final path = join(documentsDirectory.path, "item_test_1.db");
     _db = await openDatabase(
       path,
       version: 1,

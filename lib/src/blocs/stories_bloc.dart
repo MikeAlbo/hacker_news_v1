@@ -25,7 +25,8 @@ class StoriesBloc {
   }
 
   // retrieve the appropriate list of ids from the repo
-  void fetchListOfIds(storyTypes st) async {
+  fetchListOfIds(storyTypes st) async {
+    print("List of Ids called");
     final ids = await _repository.fetchListOfIds(st);
     _listOfIds.sink.add(ids);
   }
@@ -41,7 +42,9 @@ class StoriesBloc {
     );
   }
 
-  //todo: method to clear cache, used for refresh
+  clearItemsFromCache() async {
+    await _repository.clearCache();
+  }
 
   // close the streams
   dispose() {

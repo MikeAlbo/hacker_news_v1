@@ -33,6 +33,11 @@ class Repository {
     return item;
   } //fetchItem
 
+  // clear the saved Items cache
+  clearCache() async {
+    await itemDbProvider.clearItems();
+  }
+
 // get list of favorites
   // can be refactored later to fetch different list of ids
   Future<FavoritesModel> fetchFavorites(int id) async {

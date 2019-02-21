@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:hacker_news_v1/src/views/StoryListView.dart';
 
-import 'widgets/bottom_nav_bar.dart';
+import 'blocs/stories_provider.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Hacker News"),
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+    return StoriesProvider(
+      child: MaterialApp(
+        title: "Hacker News!",
+        home: StoryListView(),
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+        ),
       ),
-      body: Center(
-        child: Text("Hacker News"),
-      ),
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

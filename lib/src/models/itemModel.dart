@@ -39,7 +39,7 @@ class ItemModel {
         text = parsedDb['text'],
         dead = parsedDb['dead'] == 1,
         parent = parsedDb['parent'],
-        kids = parsedDb['kids'],
+        kids = jsonDecode(parsedDb['kids']),
         url = parsedDb['url'],
         score = parsedDb['score'],
         title = parsedDb['title'],
