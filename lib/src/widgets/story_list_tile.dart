@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hacker_news_v1/src/views/web_view.dart';
 import 'package:hacker_news_v1/src/widgets/loading_container.dart';
 
 import '../blocs/stories_provider.dart';
@@ -39,7 +40,16 @@ Widget buildTile(BuildContext context, ItemModel item) {
   return Column(
     children: <Widget>[
       ListTile(
-        //todo: onTap push to view page
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WebView(
+                    itemModel: item,
+                  ),
+            ),
+          );
+        },
         contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
         title: Text(item.title ?? "no title"),
         subtitle: _subStringBuilder(item),

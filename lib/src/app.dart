@@ -9,7 +9,9 @@ class App extends StatelessWidget {
     return StoriesProvider(
       child: MaterialApp(
         title: "Hacker News!",
-        home: StoryListView(),
+        routes: {
+          "/": (_) => StoryListView(),
+        },
         theme: ThemeData(
           // This is the theme of your application.
           //

@@ -3,20 +3,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-class WebView extends StatelessWidget {
-  final int itemId;
-  final String itemUrl;
+import '../models/itemModel.dart';
 
-  WebView({this.itemId, this.itemUrl});
+class WebView extends StatelessWidget {
+  final ItemModel itemModel;
+
+  WebView({Key key, @required this.itemModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-      url: itemUrl,
+      url: itemModel.url,
       withLocalStorage: true,
       withJavascript: true,
       appBar: AppBar(
-        title: Text(_webLinkHelper(itemUrl)),
+        title: Text(_webLinkHelper(itemModel.url)),
         actions: <Widget>[
           _actionButtonBuilder(Icons.comment, null),
           _actionButtonBuilder(Icons.star, null),
