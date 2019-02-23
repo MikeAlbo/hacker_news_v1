@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hacker_news_v1/src/blocs/stories_provider.dart';
 import 'package:hacker_news_v1/src/widgets/bottom_nav_bar.dart';
 import 'package:hacker_news_v1/src/widgets/story_list_tile.dart';
 
-import '../providers/hacker_news_api.dart';
 import '../widgets/refresh.dart';
 
-class StoryListView extends StatelessWidget {
+class StoryListView extends StatefulWidget {
+  @override
+  StoryListViewState createState() {
+    return new StoryListViewState();
+  }
+}
+
+class StoryListViewState extends State<StoryListView> {
+  FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
+
+  @override
+  void initState() {
+    flutterWebViewPlugin.close();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final bloc = StoriesProvider.of(context);
-    bloc.fetchListOfIds(
-        storyTypes.topStories); //todo: remove add to routes later
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Hacker News"),

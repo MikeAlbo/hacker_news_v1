@@ -1,23 +1,42 @@
-//todo: modify the app.dart file to use routes
-
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 import '../models/itemModel.dart';
 
-class WebView extends StatelessWidget {
+class WebView extends StatefulWidget {
   final ItemModel itemModel;
 
   WebView({Key key, @required this.itemModel}) : super(key: key);
 
   @override
+  WebViewState createState() {
+    return new WebViewState();
+  }
+}
+
+class WebViewState extends State<WebView> {
+  FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    flutterWebViewPlugin.close();
+    //flutterWebViewPlugin.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-      url: itemModel.url,
+      url: widget.itemModel.url,
       withLocalStorage: true,
       withJavascript: true,
       appBar: AppBar(
-        title: Text(_webLinkHelper(itemModel.url)),
+        title: Text(_webLinkHelper(widget.itemModel.url)),
         actions: <Widget>[
           _actionButtonBuilder(Icons.comment, null),
           _actionButtonBuilder(Icons.star, null),

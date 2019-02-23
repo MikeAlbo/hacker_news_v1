@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hacker_news_v1/src/views/StoryListView.dart';
 
 import 'blocs/stories_provider.dart';
+import 'providers/hacker_news_api.dart';
 
 class App extends StatelessWidget {
   @override
@@ -9,9 +10,7 @@ class App extends StatelessWidget {
     return StoriesProvider(
       child: MaterialApp(
         title: "Hacker News!",
-        routes: {
-          "/": (_) => StoryListView(),
-        },
+        onGenerateRoute: routes,
         theme: ThemeData(
           // This is the theme of your application.
           //
@@ -27,4 +26,16 @@ class App extends StatelessWidget {
       ),
     );
   }
+}
+
+Route routes(RouteSettings settings) {
+  if (settings.name == "/") {
+    return MaterialPageRoute(builder: (context) {
+      StoriesBloc storiesBloc = StoriesProvider.of(context);
+      storiesBloc.fetchListOfIds(storyTypes.topStories);
+      return StoryListView();
+    });
+  }
+
+  return null; //todo: convert to switch statement and use to switch between different story list
 }
