@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hacker_news_v1/src/views/web_view.dart';
 import 'package:hacker_news_v1/src/widgets/loading_container.dart';
 
 import '../blocs/stories_provider.dart';
-import '../models/itemModel.dart';
+import '../models/item_model.dart';
 
 class StoryListTile extends StatelessWidget {
   final int itemId;
@@ -41,14 +40,8 @@ Widget buildTile(BuildContext context, ItemModel item) {
     children: <Widget>[
       ListTile(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => WebView(
-                    itemModel: item,
-                  ),
-            ),
-          );
+          //Navigator.pushNamed(context, "/webview/${item.url}");
+          Navigator.pushNamed(context, "/comments/${item.id}");
         },
         contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
         title: Text(item.title ?? "no title"),

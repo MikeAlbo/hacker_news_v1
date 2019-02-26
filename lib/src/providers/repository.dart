@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:hacker_news_v1/src/models/favoritesModel.dart';
+import 'package:hacker_news_v1/src/models/favorites_model.dart';
 
-import '../models/itemModel.dart';
+import '../models/item_model.dart';
 import 'hacker_news_api.dart';
 import 'item_db_provider.dart';
 
@@ -14,6 +14,7 @@ class Repository {
 
   //get a appropriate list of Ids
   Future<List<int>> fetchListOfIds(storyTypes st) async {
+    print("repo: fetch lis tof items"); //todo: test! remove!!
     return sources[1].fetchListOfItems(st);
   } //getListOfIds
 

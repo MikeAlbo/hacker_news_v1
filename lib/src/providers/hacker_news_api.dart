@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' show Client;
 
-import '../models/itemModel.dart';
+import '../models/item_model.dart';
 import 'repository.dart';
 
 // current base url to the HN API as of 02/15/19
@@ -19,17 +19,9 @@ enum storyTypes {
   jobStories,
 }
 
-//todo: implement abstract classes for source
 class HackerNewsAPI extends ItemSources {
   // init HTTP client
   Client client = Client();
-
-  // ge a list of the top ids as an List<int>
-//  Future<List<int>> getListOfTopIds() async {
-//    final response = await client.get('$baseURL/topstories.json');
-//    final ids = json.decode(response.body);
-//    return ids.cast<int>();
-//  } // getListOfTopIds
 
   //get request and json decoder helper
   Future<List<int>> fetchListOfItems(storyTypes st) async {
@@ -79,9 +71,3 @@ class HackerNewsAPI extends ItemSources {
   } //_getURLEndpoint
 
 } //HackerNewsAPI
-
-final List<int> list = [1, 2, 3, 4, 5];
-
-printList() {
-  print(list.toString());
-}

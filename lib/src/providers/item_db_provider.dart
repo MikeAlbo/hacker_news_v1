@@ -6,8 +6,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../models/favoritesModel.dart';
-import '../models/itemModel.dart';
+import '../models/favorites_model.dart';
+import '../models/item_model.dart';
 import 'repository.dart';
 
 class ItemDbProvider extends ItemSources {

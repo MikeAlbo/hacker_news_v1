@@ -1,42 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-import '../models/itemModel.dart';
+class WebViewScreen extends StatefulWidget {
+  final String fullUrl;
 
-class WebView extends StatefulWidget {
-  final ItemModel itemModel;
-
-  WebView({Key key, @required this.itemModel}) : super(key: key);
+  WebViewScreen({Key key, @required this.fullUrl}) : super(key: key);
 
   @override
-  WebViewState createState() {
-    return new WebViewState();
+  WebViewScreenState createState() {
+    return new WebViewScreenState();
   }
 }
 
-class WebViewState extends State<WebView> {
+class WebViewScreenState extends State<WebViewScreen> {
   FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
-    flutterWebViewPlugin.close();
-    //flutterWebViewPlugin.dispose();
+    flutterWebViewPlugin.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-      url: widget.itemModel.url,
+      url: widget.fullUrl,
       withLocalStorage: true,
       withJavascript: true,
       appBar: AppBar(
-        title: Text(_webLinkHelper(widget.itemModel.url)),
+        title: Text(_webLinkHelper(widget.fullUrl)),
         actions: <Widget>[
           _actionButtonBuilder(Icons.comment, null),
           _actionButtonBuilder(Icons.star, null),

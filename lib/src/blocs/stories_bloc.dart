@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:hacker_news_v1/src/models/itemModel.dart';
+import 'package:hacker_news_v1/src/models/item_model.dart';
 import 'package:hacker_news_v1/src/providers/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -26,7 +26,7 @@ class StoriesBloc {
 
   // retrieve the appropriate list of ids from the repo
   fetchListOfIds(storyTypes st) async {
-    print("List of Ids called");
+    print("stories bloc: List of Ids called"); //todo: remove
     final ids = await _repository.fetchListOfIds(st);
     _listOfIds.sink.add(ids);
   }
@@ -34,7 +34,7 @@ class StoriesBloc {
   _itemTransformer() {
     return ScanStreamTransformer(
       (Map<int, Future<ItemModel>> cache, int id, index) {
-        print(index); //todo: remove for production, used to test api calls
+        // print(index); //todo: remove for production, used to test api calls
         cache[id] = _repository.fetchItem(id);
         return cache;
       },
