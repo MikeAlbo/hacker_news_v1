@@ -28,7 +28,7 @@ Widget _headerTitle(String title) {
     textAlign: TextAlign.center,
     style: TextStyle(
       fontSize: 30.0,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w300,
     ),
   );
 }
@@ -44,7 +44,10 @@ Widget _subhead(ItemModel item) {
             children: <Widget>[
               Text(
                 "( ${_webLinkHelper(item.url)} )",
-                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w300),
+                style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.blueGrey),
               ),
               Icon(
                 Icons.launch,

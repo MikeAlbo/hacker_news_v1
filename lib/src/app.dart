@@ -11,6 +11,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoriesProvider(
       child: MaterialApp(
+        theme: ThemeData(
+            fontFamily: "Merriweather", primarySwatch: Colors.blueGrey),
         title: "Hacker News!",
         initialRoute: "/",
         onGenerateRoute: routes,
