@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hacker_news_v1/src/blocs/comments_provider.dart';
 import 'package:hacker_news_v1/src/views/comments_view.dart';
 import 'package:hacker_news_v1/src/views/story_list_view.dart';
 
@@ -9,14 +10,16 @@ import 'views/web_view.dart';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StoriesProvider(
-      child: MaterialApp(
-        theme: ThemeData(
-            fontFamily: "Merriweather", primarySwatch: Colors.blueGrey),
-        title: "Hacker News!",
-        initialRoute: "/",
-        onGenerateRoute: routes,
-        //theme: ThemeData.dark(),
+    return CommentsProvider(
+      child: StoriesProvider(
+        child: MaterialApp(
+          theme: ThemeData(
+              fontFamily: "Merriweather", primarySwatch: Colors.blueGrey),
+          title: "Hacker News!",
+          initialRoute: "/",
+          onGenerateRoute: routes,
+          //theme: ThemeData.dark(),
+        ),
       ),
     );
   }

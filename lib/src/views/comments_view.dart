@@ -4,6 +4,7 @@ import 'package:hacker_news_v1/src/models/item_model.dart';
 import 'package:hacker_news_v1/src/widgets/loading_container.dart';
 
 import '../blocs/stories_provider.dart';
+import '../widgets/comments/comment.dart';
 import '../widgets/comments/comment_header.dart';
 
 class CommentsView extends StatelessWidget {
@@ -41,6 +42,10 @@ Widget _commentScaffold(BuildContext context, ItemModel item) {
   return ListView(
     children: <Widget>[
       CommentHeader(
+        itemModel: item,
+      ),
+      //CommentsBody(itemModel: item),
+      Comment(
         itemModel: item,
       ),
     ],

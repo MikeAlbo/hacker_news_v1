@@ -28,7 +28,7 @@ Widget _headerTitle(String title) {
     textAlign: TextAlign.center,
     style: TextStyle(
       fontSize: 30.0,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w400,
     ),
   );
 }
@@ -80,7 +80,7 @@ Widget _commentHeader(int itemChildren) {
     padding: const EdgeInsets.only(top: 20.0),
     child: Center(
       child: Text(
-        "$itemChildren Comments",
+        "$itemChildren Comment${itemChildren > 1 ? "s" : ""}",
         style: TextStyle(
           fontWeight: FontWeight.w300,
           fontSize: 30.0,
