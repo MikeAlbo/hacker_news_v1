@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hacker_news_v1/src/models/item_model.dart';
 import 'package:hacker_news_v1/src/widgets/loading_container.dart';
 
 import '../blocs/stories_provider.dart';
-import '../models/item_model.dart';
 
 class StoryListTile extends StatelessWidget {
   final int itemId;

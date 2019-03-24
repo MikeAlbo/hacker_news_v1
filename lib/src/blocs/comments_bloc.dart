@@ -13,6 +13,31 @@ class CommentBloc {
   final _commentsFetcher = PublishSubject<int>();
   final _commentsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
 
+  //constructor
+  CommentBloc() {
+    _commentsFetcher.transform(_commentsTransformer()).pipe(_commentsOutput);
+  }
+
+  // get the item with comments
+  Observable<Map<int, Future<ItemModel>>> get itemWithComments =>
+      _commentsOutput.stream;
+
+  // getter to add an item to the stream
+  Function(int) get fetchItemWithComments => _commentsFetcher.sink.add;
+
+  _commentsTransformer() {
+    return ScanStreamTransformer<int, Map<int, Future<ItemModel>>>(
+      (cache, int id, _) {
+        cache[id] = _repository.fetchItem(id);
+        cache[id].then((ItemModel item) {
+          item.kids.forEach((kidId) => fetchItemWithComments(kidId));
+        });
+        return cache;
+      },
+      <int, Future<ItemModel>>{},
+    );
+  }
+
   dispose() {
     _commentsFetcher.close();
     _commentsOutput.close();
