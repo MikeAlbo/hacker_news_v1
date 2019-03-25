@@ -46,7 +46,9 @@ Route routes(RouteSettings settings) {
     });
   } else if (settings.name.contains("/comments/")) {
     return MaterialPageRoute(builder: (context) {
+      final commentsBloc = CommentsProvider.of(context);
       final int id = int.parse(settings.name.replaceFirst("/comments/", ""));
+      commentsBloc.fetchItemWithComments(id);
       return CommentsView(id: id);
     });
   } else {

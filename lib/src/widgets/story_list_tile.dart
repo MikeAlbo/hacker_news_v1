@@ -40,8 +40,8 @@ Widget buildTile(BuildContext context, ItemModel item) {
     children: <Widget>[
       ListTile(
         onTap: () {
-          //Navigator.pushNamed(context, "/webview/${item.url}");
-          Navigator.pushNamed(context, "/comments/${item.id}");
+          Navigator.pushNamed(context, "/webview/${item.url}");
+          //Navigator.pushNamed(context, "/comments/${item.id}");
         },
         contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
         title: Text(item.title ?? "no title"),

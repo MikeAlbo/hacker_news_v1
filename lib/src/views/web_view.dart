@@ -29,10 +29,6 @@ class WebViewScreenState extends State<WebViewScreen> {
       withJavascript: true,
       appBar: AppBar(
         title: Text(_webLinkHelper(widget.fullUrl)),
-        actions: <Widget>[
-          _actionButtonBuilder(Icons.comment, null),
-          _actionButtonBuilder(Icons.star, null),
-        ],
       ),
     );
   }
