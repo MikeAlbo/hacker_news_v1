@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String fullUrl;
@@ -13,25 +15,20 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class WebViewScreenState extends State<WebViewScreen> {
-  FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
-
-  @override
-  void dispose() {
-    flutterWebViewPlugin.dispose();
-    super.dispose();
-  }
+  Completer<WebViewController> _controller = Completer<WebViewController>();
 
   @override
   Widget build(BuildContext context) {
-    return WebviewScaffold(
-      url: widget.fullUrl,
-      withLocalStorage: true,
-      withJavascript: true,
-      appBar: AppBar(
-        title: Text(_webLinkHelper(widget.fullUrl)),
-      ),
+    return Scaffold(
+      appBar: _webViewAppBar(widget.fullUrl),
     );
   }
+}
+
+AppBar _webViewAppBar(String fullLink) {
+  return AppBar(
+    title: Text(_webLinkHelper(fullLink)),
+  );
 }
 
 String _webLinkHelper(String fullLink) {

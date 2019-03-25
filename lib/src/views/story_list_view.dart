@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hacker_news_v1/src/blocs/stories_provider.dart';
 import 'package:hacker_news_v1/src/widgets/bottom_nav_bar.dart';
 import 'package:hacker_news_v1/src/widgets/story_list_tile.dart';
@@ -16,10 +15,8 @@ class StoryListView extends StatefulWidget {
 }
 
 class StoryListViewState extends State<StoryListView> {
-  FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
   @override
   void initState() {
-    flutterWebViewPlugin.close();
     super.initState();
   }
 
