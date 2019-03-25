@@ -27,9 +27,11 @@ class CommentList extends StatelessWidget {
               right: 16.0,
               left: depth * 16.0,
             ),
+
+            //todo: refactor
             leading: item.by == '' ? commentDeleted() : null,
-            title: buildText(item),
-            subtitle: buildSubtext(item),
+            title: item.by == '' ? null : buildText(item),
+            subtitle: item.by == '' ? null : buildSubtext(item),
           ),
 //          Divider(
 //            color: Colors.grey[300],
@@ -82,7 +84,7 @@ class CommentList extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          item.by,
+          "by: ${item.by} | ${DateTime.fromMillisecondsSinceEpoch(item.time * 1000).toString().split(" ")[0]}",
           style: TextStyle(
             fontStyle: FontStyle.italic,
             color: Colors.grey[700], //todo: define in theme
@@ -95,6 +97,7 @@ class CommentList extends StatelessWidget {
           : BoxDecoration(
               border: Border(
               left: BorderSide(width: 6.0, color: Colors.grey[depth * 100]),
+              bottom: BorderSide(width: 0.5, color: Colors.grey[400]),
             )),
     );
   }

@@ -16,7 +16,7 @@ class App extends StatelessWidget {
           theme: ThemeData(
               fontFamily: "Merriweather", primarySwatch: Colors.blueGrey),
           title: "Hacker News!",
-          initialRoute: "/",
+          initialRoute: "/listView",
           onGenerateRoute: routes,
           //theme: ThemeData.dark(),
         ),
@@ -26,22 +26,19 @@ class App extends StatelessWidget {
 }
 
 Route routes(RouteSettings settings) {
-  print("routes called");
-  if (settings.name == "/") {
-    print("home page called"); //todo: remove!!
+  if (settings.name == "/listView") {
     return MaterialPageRoute(builder: (context) {
       final StoriesBloc storiesBloc = StoriesProvider.of(context);
       storiesBloc.fetchListOfIds(storyTypes.topStories);
-      print("home called, fetch list"); //todo: remove!
       return StoryListView();
     });
   } else if (settings.name.contains("/webview/")) {
     return MaterialPageRoute(builder: (context) {
-      print("webview called");
-      final String fullUrl = settings.name.replaceFirst("/webview/", "");
-      print(fullUrl); //todo: remove!! this is to test urls that may be broken
+      final String urlId = settings.name.replaceFirst("/webview/", "");
+      final List<String> params = urlId.split("**");
       return WebViewScreen(
-        fullUrl: fullUrl,
+        fullUrl: params[1],
+        itemId: int.parse(params[0]),
       );
     });
   } else if (settings.name.contains("/comments/")) {
@@ -52,11 +49,9 @@ Route routes(RouteSettings settings) {
       return CommentsView(id: id);
     });
   } else {
-    print("default called"); //todo: remove!!
     return MaterialPageRoute(builder: (context) {
       final StoriesBloc storiesBloc = StoriesProvider.of(context);
       storiesBloc.fetchListOfIds(storyTypes.topStories);
-      print("home called, fetch list"); //todo: remove!
       return StoryListView();
     });
   }

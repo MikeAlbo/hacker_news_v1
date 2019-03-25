@@ -5,8 +5,10 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String fullUrl;
+  final int itemId;
 
-  WebViewScreen({Key key, @required this.fullUrl}) : super(key: key);
+  WebViewScreen({Key key, @required this.fullUrl, @required this.itemId})
+      : super(key: key);
 
   @override
   WebViewScreenState createState() {
@@ -21,8 +23,31 @@ class WebViewScreenState extends State<WebViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _webViewAppBar(widget.fullUrl),
+      body: _buildWebView(widget.fullUrl, _controller),
+      floatingActionButton: _actionButton(context, widget.itemId),
     );
   }
+}
+
+WebView _buildWebView(
+    String fullLink, Completer<WebViewController> controller) {
+  return WebView(
+    initialUrl: fullLink,
+    javascriptMode: JavascriptMode.unrestricted,
+    onWebViewCreated: (WebViewController webViewController) {
+      controller.complete(webViewController);
+    },
+  );
+}
+
+FloatingActionButton _actionButton(BuildContext context, int itemId) {
+  return FloatingActionButton(
+    tooltip: "Article Comments",
+    child: Icon(Icons.comment),
+    onPressed: () {
+      Navigator.pushNamed(context, "/comments/$itemId");
+    },
+  );
 }
 
 AppBar _webViewAppBar(String fullLink) {

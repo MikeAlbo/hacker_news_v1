@@ -40,8 +40,7 @@ Widget buildTile(BuildContext context, ItemModel item) {
     children: <Widget>[
       ListTile(
         onTap: () {
-          Navigator.pushNamed(context, "/webview/${item.url}");
-          //Navigator.pushNamed(context, "/comments/${item.id}");
+          Navigator.pushNamed(context, "/webview/${item.id}**${item.url}");
         },
         contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
         title: Text(item.title ?? "no title"),
@@ -60,7 +59,7 @@ Widget _subStringBuilder(ItemModel item) {
   return Padding(
     padding: const EdgeInsets.only(left: 8.0, top: 8.0),
     child: Text(
-      "by: ${item.by} | ${item.score} points | ${item.descendants} comments | ${_webLinkHelper(item.url)}",
+      "by: ${item.by} | ${item.score} points | ${item.descendants} comments",
       style: TextStyle(
         fontWeight: FontWeight.w300,
         fontSize: 13.0,

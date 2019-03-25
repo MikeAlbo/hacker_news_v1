@@ -10,13 +10,11 @@ class Refresh extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("refresh called!!"); //todo: remove!!
     final bloc = StoriesProvider.of(context);
     return RefreshIndicator(
       child: child,
       onRefresh: () async {
         await bloc.clearItemsFromCache();
-        print("onRefresh called: fetching List of Ids"); //todo: remove
         await bloc.fetchListOfIds(st);
       },
     );

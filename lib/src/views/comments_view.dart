@@ -41,8 +41,9 @@ class CommentsView extends StatelessWidget {
             );
           }),
       floatingActionButton: FloatingActionButton(
+        tooltip: "List of Comments",
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pushNamed(context, "/listView");
         },
         child: Icon(Icons.list),
       ),

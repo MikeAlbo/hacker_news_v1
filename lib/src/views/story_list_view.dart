@@ -9,7 +9,6 @@ import '../widgets/refresh.dart';
 class StoryListView extends StatefulWidget {
   @override
   StoryListViewState createState() {
-    print("storyListView createState called"); //todo: remove!
     return new StoryListViewState();
   }
 }
@@ -35,14 +34,11 @@ class StoryListViewState extends State<StoryListView> {
 }
 
 Widget buildList(StoriesBloc bloc) {
-  print("storyList: buildList"); //todo: remove!
   return StreamBuilder<List<int>>(
     stream: bloc.listOfIds,
     builder: (context, AsyncSnapshot<List<int>> snapshot) {
       //todo: convert to switch statement and handle the error
       if (snapshot.connectionState == ConnectionState.active) {
-        print(
-            "connection state is not waiting --- ${snapshot.connectionState}"); //todo: remove!
         return Refresh(
           st: storyTypes.topStories,
           child: ListView.builder(
@@ -54,7 +50,6 @@ Widget buildList(StoriesBloc bloc) {
           ),
         );
       } else {
-        print("connection state ---  is waiting!!");
         return Center(
           child: CircularProgressIndicator(),
         );

@@ -39,22 +39,12 @@ Widget _subhead(ItemModel item) {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "( ${_webLinkHelper(item.url)} )",
-                style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.blueGrey),
-              ),
-              Icon(
-                Icons.launch,
-                color: Colors.lightBlueAccent,
-                size: 15.0,
-              ),
-            ],
+          child: Text(
+            "( ${_webLinkHelper(item.url)} )",
+            style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w300,
+                color: Colors.grey[800]),
           ),
         ),
         Padding(
